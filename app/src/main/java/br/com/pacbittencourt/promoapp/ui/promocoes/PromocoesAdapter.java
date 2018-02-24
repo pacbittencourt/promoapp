@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.R;
+import br.com.pacbittencourt.promoapp.domain.model.Resultados;
 import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,8 +45,8 @@ final class PromocoesAdapter
         return promocoes != null ? promocoes.size() : 0;
     }
 
-    public void setData(List<ResultsItem> data) {
-        this.promocoes = data;
+    public void setData(Resultados data) {
+        this.promocoes = data.getResults();
         notifyDataSetChanged();
     }
 

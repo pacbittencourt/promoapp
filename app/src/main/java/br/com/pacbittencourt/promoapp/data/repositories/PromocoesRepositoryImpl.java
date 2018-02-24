@@ -1,11 +1,9 @@
 package br.com.pacbittencourt.promoapp.data.repositories;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.data.remote.PromocoesDataSourceRemote;
-import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
+import br.com.pacbittencourt.promoapp.domain.model.Resultados;
 import br.com.pacbittencourt.promoapp.domain.repositories.PromocoesRepository;
 import io.reactivex.Observable;
 
@@ -19,7 +17,7 @@ public class PromocoesRepositoryImpl implements PromocoesRepository {
     }
 
     @Override
-    public Observable<List<ResultsItem>> getPromocoes() {
+    public Observable<Resultados> getPromocoes() {
         return promocoesDataSourceRemote.getPromocoes();
     }
 }

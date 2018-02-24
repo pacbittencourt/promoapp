@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.pacbittencourt.promoapp.domain.model.Resultados;
 import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import br.com.pacbittencourt.promoapp.domain.usescases.GetPromocoesUseCase;
 import br.com.pacbittencourt.promoapp.ui.base.BaseRxPresenter;
@@ -39,16 +40,16 @@ class PromocoesPresenter
     }
 
     private void carregarPromocoes() {
-        Observer<List<ResultsItem>> observer = getObserver(new Consumer<List<ResultsItem>>() {
+        Observer<Resultados> observer = getObserver(new Consumer<Resultados>() {
             @Override
-            public void accept(List<ResultsItem> resultados) throws Exception {
+            public void accept(Resultados resultados) throws Exception {
                 PromocoesPresenter.this.onNext(resultados);
             }
         });
         getPromocoesUseCase.execute(observer);
     }
 
-    private void onNext(final List<ResultsItem> resultados) {
+    private void onNext(final Resultados resultados) {
         ifViewAttached(new ViewAction<PromocoesView>() {
             @Override
             public void run(@NonNull PromocoesView view) {

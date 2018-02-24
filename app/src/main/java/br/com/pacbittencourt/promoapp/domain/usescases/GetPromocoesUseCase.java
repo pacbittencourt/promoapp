@@ -1,21 +1,18 @@
 package br.com.pacbittencourt.promoapp.domain.usescases;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
+import br.com.pacbittencourt.promoapp.domain.model.Resultados;
 import br.com.pacbittencourt.promoapp.domain.repositories.PromocoesRepository;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 
-import static br.com.pacbittencourt.promoapp.injection.module.ApplicationModule
-        .POST_EXECUTION_THREAD;
+import static br.com.pacbittencourt.promoapp.injection.module.ApplicationModule.POST_EXECUTION_THREAD;
 import static br.com.pacbittencourt.promoapp.injection.module.ApplicationModule.THREAD;
 
 public final class GetPromocoesUseCase
-        extends UseCase<List<ResultsItem>, PromocoesRepository> {
+        extends UseCase<Resultados, PromocoesRepository> {
 
     @Inject
     GetPromocoesUseCase(PromocoesRepository repository,
@@ -25,7 +22,7 @@ public final class GetPromocoesUseCase
     }
 
     @Override
-    protected Observable<List<ResultsItem>> buildObservable(Void aVoid) {
+    protected Observable<Resultados> buildObservable(Void aVoid) {
         return repository.getPromocoes();
     }
 

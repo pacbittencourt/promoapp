@@ -5,18 +5,16 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.R;
-import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
+import br.com.pacbittencourt.promoapp.domain.model.Resultados;
 import br.com.pacbittencourt.promoapp.injection.component.ActivityComponent;
 import br.com.pacbittencourt.promoapp.ui.base.BaseMvpLceActivity;
 
 public final class PromocoesActivity
         extends BaseMvpLceActivity
-                        <SwipeRefreshLayout, List<ResultsItem>, PromocoesView, PromocoesPresenter>
+                        <SwipeRefreshLayout, Resultados, PromocoesView, PromocoesPresenter>
         implements PromocoesView {
 
     @Inject
@@ -56,7 +54,7 @@ public final class PromocoesActivity
     }
 
     @Override
-    public void setData(List<ResultsItem> data) {
+    public void setData(Resultados data) {
         adapter.setData(data);
     }
 
