@@ -1,5 +1,7 @@
 package br.com.pacbittencourt.promoapp.ui.promocoes;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,13 +17,28 @@ class PromocoesPresenter
 
     private final GetPromocoesUseCase getPromocoesUseCase;
 
-
     @Inject
     PromocoesPresenter(GetPromocoesUseCase getPromocoesUseCase) {
         this.getPromocoesUseCase = getPromocoesUseCase;
     }
 
+    @Override
+    public void detachView() {
+        super.detachView();
+        getPromocoesUseCase.unsubscribe();
+    }
+
     void onCreate() {
+        ifViewAttached(new ViewAction<PromocoesView>() {
+            @Override
+            public void run(@NonNull PromocoesView view) {
+                view.showLoading(false);
+                carregarPromocoes();
+            }
+        });
+    }
+
+    private void carregarPromocoes() {
         Observer<List<ResultsItem>> observer = getObserver(new Consumer<List<ResultsItem>>() {
             @Override
             public void accept(List<ResultsItem> resultados) throws Exception {
@@ -31,7 +48,13 @@ class PromocoesPresenter
         getPromocoesUseCase.execute(observer);
     }
 
-    private void onNext(List<ResultsItem> resultados) {
-
+    private void onNext(final List<ResultsItem> resultados) {
+        ifViewAttached(new ViewAction<PromocoesView>() {
+            @Override
+            public void run(@NonNull PromocoesView view) {
+                view.setData(resultados);
+                view.showContent();
+            }
+        });
     }
 }

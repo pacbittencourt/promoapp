@@ -2,7 +2,8 @@ package br.com.pacbittencourt.promoapp.ui.promocoes;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
@@ -15,17 +16,27 @@ import br.com.pacbittencourt.promoapp.ui.base.BaseMvpLceActivity;
 
 public final class PromocoesActivity
         extends BaseMvpLceActivity
-                        <ViewPager, List<ResultsItem>, PromocoesView, PromocoesPresenter> {
+                        <SwipeRefreshLayout, List<ResultsItem>, PromocoesView, PromocoesPresenter>
+        implements PromocoesView {
 
     @Inject
     PromocoesPresenter mainPresenter;
+
+    @Inject
+    PromocoesAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setupRecyclerView();
         presenter.onCreate();
+    }
+
+    private void setupRecyclerView() {
+        RecyclerView rvPromocoes = findViewById(R.id.rv_all);
+        rvPromocoes.setAdapter(adapter);
     }
 
     @NonNull
@@ -46,7 +57,13 @@ public final class PromocoesActivity
 
     @Override
     public void setData(List<ResultsItem> data) {
+        adapter.setData(data);
+    }
 
+    @Override
+    public void showContent() {
+        super.showContent();
+        contentView.setRefreshing(false);
     }
 
     @Override

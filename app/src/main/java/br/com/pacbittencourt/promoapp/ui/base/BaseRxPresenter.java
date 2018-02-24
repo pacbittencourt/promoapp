@@ -31,7 +31,7 @@ public abstract class BaseRxPresenter<V extends MvpView>
 
             @Override
             public void onError(Throwable t) {
-
+                t.printStackTrace();
             }
 
             @Override
