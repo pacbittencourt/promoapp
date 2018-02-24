@@ -2,12 +2,9 @@ package br.com.pacbittencourt.promoapp.ui.promocoes;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.domain.model.Resultados;
-import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import br.com.pacbittencourt.promoapp.domain.usescases.GetPromocoesUseCase;
 import br.com.pacbittencourt.promoapp.ui.base.BaseRxPresenter;
 import io.reactivex.Observer;
@@ -55,6 +52,16 @@ class PromocoesPresenter
             public void run(@NonNull PromocoesView view) {
                 view.setData(resultados);
                 view.showContent();
+            }
+        });
+    }
+
+    public void reload() {
+        ifViewAttached(new ViewAction<PromocoesView>() {
+            @Override
+            public void run(@NonNull PromocoesView view) {
+                view.showLoading(false);
+                carregarPromocoes();
             }
         });
     }

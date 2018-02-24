@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_salesItem_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="10dp"
+    app:cardCornerRadius="@dimen/cardview_default_radius"
+    app:cardElevation="@dimen/cardview_default_elevation">
 
-    <TextView
-        android:id="@+id/tv_itemPromocao_nomePromocao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_itemPromocao_nomePromocao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_itemPromocao_nomePromocao"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:text="VER"/>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

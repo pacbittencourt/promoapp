@@ -3,6 +3,7 @@ package br.com.pacbittencourt.promoapp.ui.promocoes;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import javax.inject.Inject;
@@ -15,10 +16,10 @@ import br.com.pacbittencourt.promoapp.ui.base.BaseMvpLceActivity;
 public final class PromocoesActivity
         extends BaseMvpLceActivity
                         <SwipeRefreshLayout, Resultados, PromocoesView, PromocoesPresenter>
-        implements PromocoesView {
+        implements PromocoesView, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
-    PromocoesPresenter mainPresenter;
+    PromocoesPresenter promocoesPresenter;
 
     @Inject
     PromocoesAdapter adapter;
@@ -29,18 +30,25 @@ public final class PromocoesActivity
         setContentView(R.layout.activity_main);
 
         setupRecyclerView();
+        setupListeners();
         presenter.onCreate();
+
+    }
+
+    private void setupListeners() {
+        contentView.setOnRefreshListener(this);
     }
 
     private void setupRecyclerView() {
         RecyclerView rvPromocoes = findViewById(R.id.rv_all);
+        rvPromocoes.setLayoutManager(new LinearLayoutManager(this));
         rvPromocoes.setAdapter(adapter);
     }
 
     @NonNull
     @Override
     public PromocoesPresenter createPresenter() {
-        return mainPresenter;
+        return promocoesPresenter;
     }
 
     @Override
@@ -66,6 +74,11 @@ public final class PromocoesActivity
 
     @Override
     public void loadData(boolean pullToRefresh) {
+        presenter.reload();
+    }
 
+    @Override
+    public void onRefresh() {
+        presenter.reload();
     }
 }
