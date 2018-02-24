@@ -1,6 +1,7 @@
 package br.com.pacbittencourt.promoapp.injection.module;
 
 import br.com.pacbittencourt.promoapp.BuildConfig;
+import br.com.pacbittencourt.promoapp.data.services.PromocoesService;
 import br.com.pacbittencourt.promoapp.injection.ActivityScope;
 import dagger.Module;
 import dagger.Provides;
@@ -40,4 +41,8 @@ public final class ApiModule {
                 .build();
     }
 
+    @Provides
+    PromocoesService providePromocoesService(Retrofit retrofit) {
+        return retrofit.create(PromocoesService.class);
+    }
 }
