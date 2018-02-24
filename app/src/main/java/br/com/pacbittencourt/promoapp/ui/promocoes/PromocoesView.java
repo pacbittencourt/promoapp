@@ -2,8 +2,10 @@ package br.com.pacbittencourt.promoapp.ui.promocoes;
 
 import com.hannesdorfmann.mosby3.mvp.lce.MvpLceView;
 
-import br.com.pacbittencourt.promoapp.domain.model.Resultados;
+import java.util.List;
+
+import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 
 interface PromocoesView
-        extends MvpLceView<Resultados> {
+        extends MvpLceView<List<ResultsItem>> {
 }

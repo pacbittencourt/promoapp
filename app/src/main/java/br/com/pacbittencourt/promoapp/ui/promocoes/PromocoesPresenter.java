@@ -1,8 +1,10 @@
 package br.com.pacbittencourt.promoapp.ui.promocoes;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import br.com.pacbittencourt.promoapp.domain.model.Resultados;
+import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import br.com.pacbittencourt.promoapp.domain.usescases.GetPromocoesUseCase;
 import br.com.pacbittencourt.promoapp.ui.base.BaseRxPresenter;
 import io.reactivex.Observer;
@@ -20,16 +22,16 @@ class PromocoesPresenter
     }
 
     void onCreate() {
-        Observer<Resultados> observer = getObserver(new Consumer<Resultados>() {
+        Observer<List<ResultsItem>> observer = getObserver(new Consumer<List<ResultsItem>>() {
             @Override
-            public void accept(Resultados resultados) throws Exception {
+            public void accept(List<ResultsItem> resultados) throws Exception {
                 PromocoesPresenter.this.onNext(resultados);
             }
         });
         getPromocoesUseCase.execute(observer);
     }
 
-    private void onNext(Resultados resultados) {
+    private void onNext(List<ResultsItem> resultados) {
 
     }
 }

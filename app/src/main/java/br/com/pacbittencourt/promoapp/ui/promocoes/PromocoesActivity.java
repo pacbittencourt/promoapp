@@ -4,15 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.R;
-import br.com.pacbittencourt.promoapp.domain.model.Resultados;
+import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import br.com.pacbittencourt.promoapp.injection.component.ActivityComponent;
 import br.com.pacbittencourt.promoapp.ui.base.BaseMvpLceActivity;
 
 public final class PromocoesActivity
-        extends BaseMvpLceActivity<ViewPager, Resultados, PromocoesView, PromocoesPresenter> {
+        extends BaseMvpLceActivity
+                        <ViewPager, List<ResultsItem>, PromocoesView, PromocoesPresenter> {
 
     @Inject
     PromocoesPresenter mainPresenter;
@@ -42,7 +45,7 @@ public final class PromocoesActivity
     }
 
     @Override
-    public void setData(Resultados data) {
+    public void setData(List<ResultsItem> data) {
 
     }
 
