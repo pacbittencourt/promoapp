@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.domain.model.Resultados;
+import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import br.com.pacbittencourt.promoapp.domain.usescases.GetPromocoesUseCase;
 import br.com.pacbittencourt.promoapp.ui.base.BaseRxPresenter;
 import io.reactivex.Observer;
@@ -56,7 +57,7 @@ class PromocoesPresenter
         });
     }
 
-    public void reload() {
+    void reload() {
         ifViewAttached(new ViewAction<PromocoesView>() {
             @Override
             public void run(@NonNull PromocoesView view) {
@@ -64,5 +65,9 @@ class PromocoesPresenter
                 carregarPromocoes();
             }
         });
+    }
+
+    void onPromocaoClicked(ResultsItem resultsItem, int position) {
+        navigator.goToProdutos(resultsItem.getPromocoes(),position);
     }
 }

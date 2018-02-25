@@ -1,9 +1,13 @@
 package br.com.pacbittencourt.promoapp.domain.model;
 
-import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class ResultsItem{
+import java.util.List;
+
+public class ResultsItem implements Parcelable {
 
 	@SerializedName("DataTermino")
 	private String dataTermino;
@@ -22,6 +26,24 @@ public class ResultsItem{
 
 	@SerializedName("Arquivos")
 	private List<Object> arquivos;
+
+	private ResultsItem(Parcel in) {
+		dataTermino = in.readString();
+		dataInicio = in.readString();
+		nome = in.readString();
+	}
+
+	public static final Creator<ResultsItem> CREATOR = new Creator<ResultsItem>() {
+		@Override
+		public ResultsItem createFromParcel(Parcel in) {
+			return new ResultsItem(in);
+		}
+
+		@Override
+		public ResultsItem[] newArray(int size) {
+			return new ResultsItem[size];
+		}
+	};
 
 	public void setDataTermino(String dataTermino){
 		this.dataTermino = dataTermino;
@@ -72,15 +94,14 @@ public class ResultsItem{
 	}
 
 	@Override
- 	public String toString(){
-		return 
-			"ResultsItem{" + 
-			"dataTermino = '" + dataTermino + '\'' + 
-			",lojas = '" + lojas + '\'' + 
-			",dataInicio = '" + dataInicio + '\'' + 
-			",nome = '" + nome + '\'' + 
-			",promocoes = '" + promocoes + '\'' + 
-			",arquivos = '" + arquivos + '\'' + 
-			"}";
-		}
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel parcel, int i) {
+		parcel.writeString(dataTermino);
+		parcel.writeString(dataInicio);
+		parcel.writeString(nome);
+	}
 }

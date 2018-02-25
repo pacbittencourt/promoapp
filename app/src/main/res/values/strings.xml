@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Promo App</string>
     <string name="viewError_message">Ocorreu um erro</string>
+    <string name="itemProduto_precoExemplo">R$ 2,99</string>
+
+    <string name="itemProduto_preco">R$ %1$s</string>
+    <string name="produtosActivity_title">Produtos</string>
+    <string name="promocoesActivity_title">Promoções</string>
 </resources>

@@ -7,6 +7,7 @@ import br.com.pacbittencourt.promoapp.injection.ActivityScope;
 import br.com.pacbittencourt.promoapp.injection.module.ActivityModule;
 import br.com.pacbittencourt.promoapp.injection.module.ApiModule;
 import br.com.pacbittencourt.promoapp.injection.module.RepositoryModule;
+import br.com.pacbittencourt.promoapp.ui.produtos.ProdutosActivity;
 import br.com.pacbittencourt.promoapp.ui.promocoes.PromocoesActivity;
 import dagger.Component;
 
@@ -19,4 +20,6 @@ public interface ActivityComponent {
     Context context();
 
     void inject(PromocoesActivity promocoesActivity);
+
+    void inject(ProdutosActivity produtosActivity);
 }

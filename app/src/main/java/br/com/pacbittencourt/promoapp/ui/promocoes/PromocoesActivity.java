@@ -10,13 +10,15 @@ import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.R;
 import br.com.pacbittencourt.promoapp.domain.model.Resultados;
+import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import br.com.pacbittencourt.promoapp.injection.component.ActivityComponent;
 import br.com.pacbittencourt.promoapp.ui.base.BaseMvpLceActivity;
 
 public final class PromocoesActivity
         extends BaseMvpLceActivity
                         <SwipeRefreshLayout, Resultados, PromocoesView, PromocoesPresenter>
-        implements PromocoesView, SwipeRefreshLayout.OnRefreshListener {
+        implements PromocoesView, PromocoesAdapter.PromocaoClickListener,
+                   SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     PromocoesPresenter promocoesPresenter;
@@ -36,6 +38,7 @@ public final class PromocoesActivity
     }
 
     private void setupListeners() {
+        adapter.setListener(this);
         contentView.setOnRefreshListener(this);
     }
 
@@ -80,5 +83,10 @@ public final class PromocoesActivity
     @Override
     public void onRefresh() {
         presenter.reload();
+    }
+
+    @Override
+    public void onPromocaoClick(ResultsItem promocao, int position) {
+        presenter.onPromocaoClicked(promocao, position);
     }
 }

@@ -1,8 +1,11 @@
 package br.com.pacbittencourt.promoapp.domain.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class PromocoesItem{
+public class PromocoesItem implements Parcelable{
 
 	@SerializedName("UrlImage")
 	private String urlImage;
@@ -27,6 +30,26 @@ public class PromocoesItem{
 
 	@SerializedName("Produto")
 	private Produto produto;
+
+	private PromocoesItem(Parcel in) {
+		urlImage = in.readString();
+		dataTermino = in.readString();
+		preco = in.readDouble();
+		dataInicio = in.readString();
+		titulo = in.readString();
+	}
+
+	public static final Creator<PromocoesItem> CREATOR = new Creator<PromocoesItem>() {
+		@Override
+		public PromocoesItem createFromParcel(Parcel in) {
+			return new PromocoesItem(in);
+		}
+
+		@Override
+		public PromocoesItem[] newArray(int size) {
+			return new PromocoesItem[size];
+		}
+	};
 
 	public void setUrlImage(String urlImage){
 		this.urlImage = urlImage;
@@ -92,18 +115,18 @@ public class PromocoesItem{
 		return produto;
 	}
 
+
 	@Override
- 	public String toString(){
-		return 
-			"PromocoesItem{" + 
-			"urlImage = '" + urlImage + '\'' + 
-			",dataTermino = '" + dataTermino + '\'' + 
-			",preco = '" + preco + '\'' + 
-			",categoria = '" + categoria + '\'' + 
-			",dataInicio = '" + dataInicio + '\'' + 
-			",titulo = '" + titulo + '\'' + 
-			",precoAnterior = '" + precoAnterior + '\'' + 
-			",produto = '" + produto + '\'' + 
-			"}";
-		}
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel parcel, int i) {
+		parcel.writeString(urlImage);
+		parcel.writeString(dataTermino);
+		parcel.writeDouble(preco);
+		parcel.writeString(dataInicio);
+		parcel.writeString(titulo);
+	}
 }
