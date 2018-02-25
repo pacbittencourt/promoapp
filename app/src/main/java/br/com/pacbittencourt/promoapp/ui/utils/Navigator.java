@@ -3,12 +3,9 @@ package br.com.pacbittencourt.promoapp.ui.utils;
 import android.content.Context;
 import android.content.Intent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
-import br.com.pacbittencourt.promoapp.domain.model.PromocoesItem;
+import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import br.com.pacbittencourt.promoapp.injection.ActivityContext;
 import br.com.pacbittencourt.promoapp.ui.produtos.ProdutosActivity;
 
@@ -23,10 +20,9 @@ public final class Navigator {
         this.context = context;
     }
 
-    public void goToProdutos(List<PromocoesItem> produtos, int position) {
+    public void goToProdutos(ResultsItem promocao, int position) {
         Intent intent = new Intent(context, ProdutosActivity.class);
-        ArrayList<PromocoesItem> promocoesItems = (ArrayList<PromocoesItem>) produtos;
-        intent.putParcelableArrayListExtra(KEY_RESULTS_ITEM, promocoesItems);
+        intent.putExtra(KEY_RESULTS_ITEM, promocao);
         context.startActivity(intent);
     }
 }

@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.R;
 import br.com.pacbittencourt.promoapp.domain.model.PromocoesItem;
+import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import br.com.pacbittencourt.promoapp.injection.component.ActivityComponent;
 import br.com.pacbittencourt.promoapp.ui.base.BaseMvpActivity;
 
@@ -31,7 +32,7 @@ public final class ProdutosActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produtos);
 
-        List<PromocoesItem> promocao = getIntent().getParcelableArrayListExtra(KEY_RESULTS_ITEM);
+        ResultsItem promocao = getIntent().getParcelableExtra(KEY_RESULTS_ITEM);
         adapter.setPromocao(promocao);
 
         setupRecyclerView();

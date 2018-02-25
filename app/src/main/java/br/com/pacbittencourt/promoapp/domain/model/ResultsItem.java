@@ -5,103 +5,110 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ResultsItem implements Parcelable {
+public class ResultsItem
+        implements Parcelable {
 
-	@SerializedName("DataTermino")
-	private String dataTermino;
+    @SerializedName("DataTermino")
+    private String dataTermino;
 
-	@SerializedName("Lojas")
-	private List<LojasItem> lojas;
+    @SerializedName("Lojas")
+    private List<LojasItem> lojas;
 
-	@SerializedName("DataInicio")
-	private String dataInicio;
+    @SerializedName("DataInicio")
+    private String dataInicio;
 
-	@SerializedName("Nome")
-	private String nome;
+    @SerializedName("Nome")
+    private String nome;
 
-	@SerializedName("Promocoes")
-	private List<PromocoesItem> promocoes;
+    @SerializedName("Promocoes")
+    private List<PromocoesItem> promocoes;
 
-	@SerializedName("Arquivos")
-	private List<Object> arquivos;
+    @SerializedName("Arquivos")
+    private List<Object> arquivos;
 
-	private ResultsItem(Parcel in) {
-		dataTermino = in.readString();
-		dataInicio = in.readString();
-		nome = in.readString();
-	}
+    public ResultsItem(Parcel in) {
+        this.dataTermino = in.readString();
+        this.dataInicio = in.readString();
+        this.nome = in.readString();
 
-	public static final Creator<ResultsItem> CREATOR = new Creator<ResultsItem>() {
-		@Override
-		public ResultsItem createFromParcel(Parcel in) {
-			return new ResultsItem(in);
-		}
+        this.promocoes = new ArrayList<PromocoesItem>();
+        in.readTypedList(promocoes, PromocoesItem.CREATOR);
+    }
 
-		@Override
-		public ResultsItem[] newArray(int size) {
-			return new ResultsItem[size];
-		}
-	};
+    public static final Creator<ResultsItem> CREATOR = new Creator<ResultsItem>() {
+        @Override
+        public ResultsItem createFromParcel(Parcel in) {
+            return new ResultsItem(in);
+        }
 
-	public void setDataTermino(String dataTermino){
-		this.dataTermino = dataTermino;
-	}
+        @Override
+        public ResultsItem[] newArray(int size) {
+            return new ResultsItem[size];
+        }
+    };
 
-	public String getDataTermino(){
-		return dataTermino;
-	}
+    public void setDataTermino(String dataTermino) {
+        this.dataTermino = dataTermino;
+    }
 
-	public void setLojas(List<LojasItem> lojas){
-		this.lojas = lojas;
-	}
+    public String getDataTermino() {
+        return dataTermino;
+    }
 
-	public List<LojasItem> getLojas(){
-		return lojas;
-	}
+    public void setLojas(List<LojasItem> lojas) {
+        this.lojas = lojas;
+    }
 
-	public void setDataInicio(String dataInicio){
-		this.dataInicio = dataInicio;
-	}
+    public List<LojasItem> getLojas() {
+        return lojas;
+    }
 
-	public String getDataInicio(){
-		return dataInicio;
-	}
+    public void setDataInicio(String dataInicio) {
+        this.dataInicio = dataInicio;
+    }
 
-	public void setNome(String nome){
-		this.nome = nome;
-	}
+    public String getDataInicio() {
+        return dataInicio;
+    }
 
-	public String getNome(){
-		return nome;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setPromocoes(List<PromocoesItem> promocoes){
-		this.promocoes = promocoes;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public List<PromocoesItem> getPromocoes(){
-		return promocoes;
-	}
+    public void setPromocoes(List<PromocoesItem> promocoes) {
+        this.promocoes = promocoes;
+    }
 
-	public void setArquivos(List<Object> arquivos){
-		this.arquivos = arquivos;
-	}
+    public List<PromocoesItem> getPromocoes() {
+        return promocoes;
+    }
 
-	public List<Object> getArquivos(){
-		return arquivos;
-	}
+    public void setArquivos(List<Object> arquivos) {
+        this.arquivos = arquivos;
+    }
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
+    public List<Object> getArquivos() {
+        return arquivos;
+    }
 
-	@Override
-	public void writeToParcel(Parcel parcel, int i) {
-		parcel.writeString(dataTermino);
-		parcel.writeString(dataInicio);
-		parcel.writeString(nome);
-	}
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(dataTermino);
+        parcel.writeString(dataInicio);
+        parcel.writeString(nome);
+
+        parcel.writeTypedList(promocoes);
+    }
 }

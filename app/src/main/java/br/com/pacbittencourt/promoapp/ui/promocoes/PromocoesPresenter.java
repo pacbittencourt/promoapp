@@ -68,6 +68,6 @@ class PromocoesPresenter
     }
 
     void onPromocaoClicked(ResultsItem resultsItem, int position) {
-        navigator.goToProdutos(resultsItem.getPromocoes(),position);
+        navigator.goToProdutos(resultsItem,position);
     }
 }

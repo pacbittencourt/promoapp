@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.R;
 import br.com.pacbittencourt.promoapp.domain.model.PromocoesItem;
+import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,8 +33,8 @@ final class ProdutosAdapter
         this.produtos = new ArrayList<>();
     }
 
-    void setPromocao(List<PromocoesItem> promocao) {
-        this.produtos = promocao;
+    void setPromocao(ResultsItem promocao) {
+        this.produtos = promocao.getPromocoes();
         notifyDataSetChanged();
     }
 
