@@ -29,13 +29,25 @@ public class ResultsItem
     @SerializedName("Arquivos")
     private List<Object> arquivos;
 
-    public ResultsItem(Parcel in) {
+    private ResultsItem(Parcel in) {
         this.dataTermino = in.readString();
         this.dataInicio = in.readString();
         this.nome = in.readString();
 
+        this.lojas = new ArrayList<LojasItem>();
+        in.readTypedList(lojas,LojasItem.CREATOR);
         this.promocoes = new ArrayList<PromocoesItem>();
         in.readTypedList(promocoes, PromocoesItem.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(dataTermino);
+        parcel.writeString(dataInicio);
+        parcel.writeString(nome);
+
+        parcel.writeTypedList(lojas);
+        parcel.writeTypedList(promocoes);
     }
 
     public static final Creator<ResultsItem> CREATOR = new Creator<ResultsItem>() {
@@ -101,14 +113,5 @@ public class ResultsItem
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(dataTermino);
-        parcel.writeString(dataInicio);
-        parcel.writeString(nome);
-
-        parcel.writeTypedList(promocoes);
     }
 }

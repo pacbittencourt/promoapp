@@ -5,128 +5,133 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PromocoesItem implements Parcelable{
+public class PromocoesItem
+        implements Parcelable {
 
-	@SerializedName("UrlImage")
-	private String urlImage;
+    @SerializedName("UrlImage")
+    private String urlImage;
 
-	@SerializedName("DataTermino")
-	private String dataTermino;
+    @SerializedName("DataTermino")
+    private String dataTermino;
 
-	@SerializedName("Preco")
-	private double preco;
+    @SerializedName("Preco")
+    private double preco;
 
-	@SerializedName("Categoria")
-	private Categoria categoria;
+    @SerializedName("Categoria")
+    private Categoria categoria;
 
-	@SerializedName("DataInicio")
-	private String dataInicio;
+    @SerializedName("DataInicio")
+    private String dataInicio;
 
-	@SerializedName("Titulo")
-	private String titulo;
+    @SerializedName("Titulo")
+    private String titulo;
 
-	@SerializedName("PrecoAnterior")
-	private Object precoAnterior;
+    @SerializedName("PrecoAnterior")
+    private Object precoAnterior;
 
-	@SerializedName("Produto")
-	private Produto produto;
+    @SerializedName("Produto")
+    private Produto produto;
 
-	private PromocoesItem(Parcel in) {
-		urlImage = in.readString();
-		dataTermino = in.readString();
-		preco = in.readDouble();
-		dataInicio = in.readString();
-		titulo = in.readString();
-	}
+    private PromocoesItem(Parcel in) {
+        this.categoria = in.readParcelable(Categoria.class.getClassLoader());
+        this.produto = in.readParcelable(Produto.class.getClassLoader());
+        urlImage = in.readString();
+        dataTermino = in.readString();
+        preco = in.readDouble();
+        dataInicio = in.readString();
+        titulo = in.readString();
+    }
 
-	public static final Creator<PromocoesItem> CREATOR = new Creator<PromocoesItem>() {
-		@Override
-		public PromocoesItem createFromParcel(Parcel in) {
-			return new PromocoesItem(in);
-		}
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeParcelable(categoria, i);
+        parcel.writeParcelable(produto, i);
+        parcel.writeString(urlImage);
+        parcel.writeString(dataTermino);
+        parcel.writeDouble(preco);
+        parcel.writeString(dataInicio);
+        parcel.writeString(titulo);
+    }
 
-		@Override
-		public PromocoesItem[] newArray(int size) {
-			return new PromocoesItem[size];
-		}
-	};
+    static final Creator<PromocoesItem> CREATOR = new Creator<PromocoesItem>() {
+        @Override
+        public PromocoesItem createFromParcel(Parcel in) {
+            return new PromocoesItem(in);
+        }
 
-	public void setUrlImage(String urlImage){
-		this.urlImage = urlImage;
-	}
+        @Override
+        public PromocoesItem[] newArray(int size) {
+            return new PromocoesItem[size];
+        }
+    };
 
-	public String getUrlImage(){
-		return urlImage;
-	}
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
 
-	public void setDataTermino(String dataTermino){
-		this.dataTermino = dataTermino;
-	}
+    public String getUrlImage() {
+        return urlImage;
+    }
 
-	public String getDataTermino(){
-		return dataTermino;
-	}
+    public void setDataTermino(String dataTermino) {
+        this.dataTermino = dataTermino;
+    }
 
-	public void setPreco(double preco){
-		this.preco = preco;
-	}
+    public String getDataTermino() {
+        return dataTermino;
+    }
 
-	public double getPreco(){
-		return preco;
-	}
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
 
-	public void setCategoria(Categoria categoria){
-		this.categoria = categoria;
-	}
+    public double getPreco() {
+        return preco;
+    }
 
-	public Categoria getCategoria(){
-		return categoria;
-	}
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
-	public void setDataInicio(String dataInicio){
-		this.dataInicio = dataInicio;
-	}
+    public Categoria getCategoria() {
+        return categoria;
+    }
 
-	public String getDataInicio(){
-		return dataInicio;
-	}
+    public void setDataInicio(String dataInicio) {
+        this.dataInicio = dataInicio;
+    }
 
-	public void setTitulo(String titulo){
-		this.titulo = titulo;
-	}
+    public String getDataInicio() {
+        return dataInicio;
+    }
 
-	public String getTitulo(){
-		return titulo;
-	}
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-	public void setPrecoAnterior(Object precoAnterior){
-		this.precoAnterior = precoAnterior;
-	}
+    public String getTitulo() {
+        return titulo;
+    }
 
-	public Object getPrecoAnterior(){
-		return precoAnterior;
-	}
+    public void setPrecoAnterior(Object precoAnterior) {
+        this.precoAnterior = precoAnterior;
+    }
 
-	public void setProduto(Produto produto){
-		this.produto = produto;
-	}
+    public Object getPrecoAnterior() {
+        return precoAnterior;
+    }
 
-	public Produto getProduto(){
-		return produto;
-	}
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
+    public Produto getProduto() {
+        return produto;
+    }
 
-	@Override
-	public void writeToParcel(Parcel parcel, int i) {
-		parcel.writeString(urlImage);
-		parcel.writeString(dataTermino);
-		parcel.writeDouble(preco);
-		parcel.writeString(dataInicio);
-		parcel.writeString(titulo);
-	}
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 }

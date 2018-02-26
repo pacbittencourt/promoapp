@@ -1,8 +1,11 @@
 package br.com.pacbittencourt.promoapp.domain.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Produto{
+public class Produto implements Parcelable{
 
 	@SerializedName("IdProduto")
 	private int idProduto;
@@ -15,6 +18,24 @@ public class Produto{
 
 	@SerializedName("NomeProdutoBase")
 	private String nomeProdutoBase;
+
+	private Produto(Parcel in) {
+		idProduto = in.readInt();
+		codigoInterno = in.readString();
+		nomeProdutoBase = in.readString();
+	}
+
+	public static final Creator<Produto> CREATOR = new Creator<Produto>() {
+		@Override
+		public Produto createFromParcel(Parcel in) {
+			return new Produto(in);
+		}
+
+		@Override
+		public Produto[] newArray(int size) {
+			return new Produto[size];
+		}
+	};
 
 	public void setIdProduto(int idProduto){
 		this.idProduto = idProduto;
@@ -49,13 +70,14 @@ public class Produto{
 	}
 
 	@Override
- 	public String toString(){
-		return 
-			"Produto{" + 
-			"idProduto = '" + idProduto + '\'' + 
-			",codigoInterno = '" + codigoInterno + '\'' + 
-			",codigoBarras = '" + codigoBarras + '\'' + 
-			",nomeProdutoBase = '" + nomeProdutoBase + '\'' + 
-			"}";
-		}
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel parcel, int i) {
+		parcel.writeInt(idProduto);
+		parcel.writeString(codigoInterno);
+		parcel.writeString(nomeProdutoBase);
+	}
 }

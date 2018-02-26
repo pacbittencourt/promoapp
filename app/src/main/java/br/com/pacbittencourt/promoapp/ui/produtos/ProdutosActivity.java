@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.R;
@@ -16,6 +14,7 @@ import br.com.pacbittencourt.promoapp.injection.component.ActivityComponent;
 import br.com.pacbittencourt.promoapp.ui.base.BaseMvpActivity;
 
 import static br.com.pacbittencourt.promoapp.ui.utils.Navigator.KEY_RESULTS_ITEM;
+import static br.com.pacbittencourt.promoapp.ui.utils.Navigator.KEY_RESULTS_ITEM_BUNDLE;
 
 public final class ProdutosActivity
         extends BaseMvpActivity<ProdutosView, ProdutosPresenter>
@@ -32,7 +31,8 @@ public final class ProdutosActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produtos);
 
-        ResultsItem promocao = getIntent().getParcelableExtra(KEY_RESULTS_ITEM);
+        Bundle bundle = getIntent().getBundleExtra(KEY_RESULTS_ITEM);
+        ResultsItem promocao = bundle.getParcelable(KEY_RESULTS_ITEM_BUNDLE);
         adapter.setPromocao(promocao);
 
         setupRecyclerView();
