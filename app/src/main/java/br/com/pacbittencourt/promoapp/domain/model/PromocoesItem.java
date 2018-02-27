@@ -1,12 +1,29 @@
 package br.com.pacbittencourt.promoapp.domain.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import br.com.pacbittencourt.promoapp.data.local.converters.CategoriaTypeConverter;
+import br.com.pacbittencourt.promoapp.data.local.converters.ProdutoTypeConverter;
+
+@Entity
 public class PromocoesItem
         implements Parcelable {
+
+    @PrimaryKey
+    private int id;
+
+    @ForeignKey(
+            entity = ResultsItem.class,
+            parentColumns = "id",
+            childColumns = "idResultsItem")
+    private int idResultsItem;
 
     @SerializedName("UrlImage")
     private String urlImage;
@@ -17,6 +34,7 @@ public class PromocoesItem
     @SerializedName("Preco")
     private double preco;
 
+    @TypeConverters(CategoriaTypeConverter.class)
     @SerializedName("Categoria")
     private Categoria categoria;
 
@@ -26,11 +44,12 @@ public class PromocoesItem
     @SerializedName("Titulo")
     private String titulo;
 
-    @SerializedName("PrecoAnterior")
-    private Object precoAnterior;
-
+    @TypeConverters(ProdutoTypeConverter.class)
     @SerializedName("Produto")
     private Produto produto;
+
+    public PromocoesItem() {
+    }
 
     private PromocoesItem(Parcel in) {
         this.categoria = in.readParcelable(Categoria.class.getClassLoader());
@@ -64,6 +83,22 @@ public class PromocoesItem
             return new PromocoesItem[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdResultsItem() {
+        return idResultsItem;
+    }
+
+    public void setIdResultsItem(int idResultsItem) {
+        this.idResultsItem = idResultsItem;
+    }
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
@@ -113,18 +148,9 @@ public class PromocoesItem
         return titulo;
     }
 
-    public void setPrecoAnterior(Object precoAnterior) {
-        this.precoAnterior = precoAnterior;
-    }
-
-    public Object getPrecoAnterior() {
-        return precoAnterior;
-    }
-
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-
 
     public Produto getProduto() {
         return produto;

@@ -14,6 +14,14 @@ public class Categoria
     @SerializedName("Nome")
     private String nome;
 
+    public Categoria() {
+    }
+
+    public Categoria(int idCategoria, String nome) {
+        this.idCategoria = idCategoria;
+        this.nome = nome;
+    }
+
     private Categoria(Parcel in) {
         idCategoria = in.readInt();
         nome = in.readString();

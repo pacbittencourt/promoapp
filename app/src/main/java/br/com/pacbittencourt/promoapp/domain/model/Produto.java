@@ -5,79 +5,79 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Produto implements Parcelable{
+public class Produto
+        implements Parcelable {
 
-	@SerializedName("IdProduto")
-	private int idProduto;
+    @SerializedName("IdProduto")
+    private int idProduto;
 
-	@SerializedName("CodigoInterno")
-	private String codigoInterno;
+    @SerializedName("CodigoInterno")
+    private String codigoInterno;
 
-	@SerializedName("CodigoBarras")
-	private Object codigoBarras;
+    @SerializedName("NomeProdutoBase")
+    private String nomeProdutoBase;
 
-	@SerializedName("NomeProdutoBase")
-	private String nomeProdutoBase;
+    public Produto() {
+    }
 
-	private Produto(Parcel in) {
-		idProduto = in.readInt();
-		codigoInterno = in.readString();
-		nomeProdutoBase = in.readString();
-	}
+    public Produto(int idProduto, String codigoInterno, String
+            nomeProdutoBase) {
+        this.idProduto = idProduto;
+        this.codigoInterno = codigoInterno;
+        this.nomeProdutoBase = nomeProdutoBase;
+    }
 
-	public static final Creator<Produto> CREATOR = new Creator<Produto>() {
-		@Override
-		public Produto createFromParcel(Parcel in) {
-			return new Produto(in);
-		}
+    private Produto(Parcel in) {
+        idProduto = in.readInt();
+        codigoInterno = in.readString();
+        nomeProdutoBase = in.readString();
+    }
 
-		@Override
-		public Produto[] newArray(int size) {
-			return new Produto[size];
-		}
-	};
+    public static final Creator<Produto> CREATOR = new Creator<Produto>() {
+        @Override
+        public Produto createFromParcel(Parcel in) {
+            return new Produto(in);
+        }
 
-	public void setIdProduto(int idProduto){
-		this.idProduto = idProduto;
-	}
+        @Override
+        public Produto[] newArray(int size) {
+            return new Produto[size];
+        }
+    };
 
-	public int getIdProduto(){
-		return idProduto;
-	}
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
+    }
 
-	public void setCodigoInterno(String codigoInterno){
-		this.codigoInterno = codigoInterno;
-	}
+    public int getIdProduto() {
+        return idProduto;
+    }
 
-	public String getCodigoInterno(){
-		return codigoInterno;
-	}
+    public void setCodigoInterno(String codigoInterno) {
+        this.codigoInterno = codigoInterno;
+    }
 
-	public void setCodigoBarras(Object codigoBarras){
-		this.codigoBarras = codigoBarras;
-	}
+    public String getCodigoInterno() {
+        return codigoInterno;
+    }
 
-	public Object getCodigoBarras(){
-		return codigoBarras;
-	}
+    public void setNomeProdutoBase(String nomeProdutoBase) {
+        this.nomeProdutoBase = nomeProdutoBase;
+    }
 
-	public void setNomeProdutoBase(String nomeProdutoBase){
-		this.nomeProdutoBase = nomeProdutoBase;
-	}
+    public String getNomeProdutoBase() {
+        return nomeProdutoBase;
+    }
 
-	public String getNomeProdutoBase(){
-		return nomeProdutoBase;
-	}
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel parcel, int i) {
-		parcel.writeInt(idProduto);
-		parcel.writeString(codigoInterno);
-		parcel.writeString(nomeProdutoBase);
-	}
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(idProduto);
+        parcel.writeString(codigoInterno);
+        parcel.writeString(nomeProdutoBase);
+    }
 }

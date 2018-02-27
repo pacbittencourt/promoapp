@@ -1,5 +1,8 @@
 package br.com.pacbittencourt.promoapp.domain.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,12 +11,20 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.pacbittencourt.promoapp.data.local.converters.ListLojasItemTypeConverter;
+import br.com.pacbittencourt.promoapp.data.local.converters.ListPromocoesItemTypeConverter;
+
+@Entity
 public class ResultsItem
         implements Parcelable {
+
+    @PrimaryKey
+    private int id;
 
     @SerializedName("DataTermino")
     private String dataTermino;
 
+    @TypeConverters(ListLojasItemTypeConverter.class)
     @SerializedName("Lojas")
     private List<LojasItem> lojas;
 
@@ -23,11 +34,12 @@ public class ResultsItem
     @SerializedName("Nome")
     private String nome;
 
+    @TypeConverters(ListPromocoesItemTypeConverter.class)
     @SerializedName("Promocoes")
     private List<PromocoesItem> promocoes;
 
-    @SerializedName("Arquivos")
-    private List<Object> arquivos;
+    public ResultsItem() {
+    }
 
     private ResultsItem(Parcel in) {
         this.dataTermino = in.readString();
@@ -61,6 +73,14 @@ public class ResultsItem
             return new ResultsItem[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setDataTermino(String dataTermino) {
         this.dataTermino = dataTermino;
@@ -100,14 +120,6 @@ public class ResultsItem
 
     public List<PromocoesItem> getPromocoes() {
         return promocoes;
-    }
-
-    public void setArquivos(List<Object> arquivos) {
-        this.arquivos = arquivos;
-    }
-
-    public List<Object> getArquivos() {
-        return arquivos;
     }
 
     @Override

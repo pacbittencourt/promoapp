@@ -14,6 +14,9 @@ public class LojasItem
     @SerializedName("Nome")
     private String nome;
 
+    public LojasItem() {
+    }
+
     private LojasItem(Parcel in) {
         idLoja = in.readInt();
         nome = in.readString();

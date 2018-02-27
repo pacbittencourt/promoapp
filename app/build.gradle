@@ -35,6 +35,7 @@ dependencies {
     final RX_ANDROID_VERSION = '2.0.2'
     final RX_JAXA_VERSION = '2.1.9'
     final GLIDE_VERSION = '4.6.1'
+    final ROOM_VERSION = '1.0.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$SUPPORT_VERSION"
@@ -77,6 +78,12 @@ dependencies {
     //Glide
     implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"
     annotationProcessor "com.github.bumptech.glide:compiler:$GLIDE_VERSION"
+
+    //ROOM
+    implementation "android.arch.persistence.room:runtime:$ROOM_VERSION"
+    implementation "android.arch.persistence.room:rxjava2:$ROOM_VERSION"
+    annotationProcessor "android.arch.persistence.room:compiler:$ROOM_VERSION"
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

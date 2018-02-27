@@ -12,7 +12,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.R;
-import br.com.pacbittencourt.promoapp.domain.model.Resultados;
 import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +30,7 @@ final class PromocoesAdapter
     }
 
     interface PromocaoClickListener {
-        void onPromocaoClick(ResultsItem promocao, int position);
+        void onPromocaoClick(ResultsItem promocao);
     }
 
     @Override
@@ -56,8 +55,8 @@ final class PromocoesAdapter
         this.listener = listener;
     }
 
-    public void setData(Resultados data) {
-        this.promocoes = data.getResults();
+    public void setData(List<ResultsItem> data) {
+        this.promocoes = data;
         notifyDataSetChanged();
     }
 
@@ -81,8 +80,7 @@ final class PromocoesAdapter
 
         @OnClick(R.id.btn_itemPromocao_verPromocao)
         void onVerPromocaoClicked() {
-            listener.onPromocaoClick(promocoes.get(getAdapterPosition()),
-                    getAdapterPosition());
+            listener.onPromocaoClick(promocoes.get(getAdapterPosition()));
         }
     }
 }

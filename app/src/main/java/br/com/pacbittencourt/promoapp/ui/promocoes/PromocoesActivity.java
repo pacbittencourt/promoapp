@@ -6,17 +6,18 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.R;
-import br.com.pacbittencourt.promoapp.domain.model.Resultados;
 import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 import br.com.pacbittencourt.promoapp.injection.component.ActivityComponent;
 import br.com.pacbittencourt.promoapp.ui.base.BaseMvpLceActivity;
 
 public final class PromocoesActivity
         extends BaseMvpLceActivity
-                        <SwipeRefreshLayout, Resultados, PromocoesView, PromocoesPresenter>
+                        <SwipeRefreshLayout, List<ResultsItem>, PromocoesView, PromocoesPresenter>
         implements PromocoesView, PromocoesAdapter.PromocaoClickListener,
                    SwipeRefreshLayout.OnRefreshListener {
 
@@ -61,11 +62,11 @@ public final class PromocoesActivity
 
     @Override
     protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
-        return null;
+        return e.getMessage();
     }
 
     @Override
-    public void setData(Resultados data) {
+    public void setData(List<ResultsItem> data) {
         adapter.setData(data);
     }
 
@@ -77,16 +78,16 @@ public final class PromocoesActivity
 
     @Override
     public void loadData(boolean pullToRefresh) {
-        presenter.reload();
+        presenter.refresh();
     }
 
     @Override
     public void onRefresh() {
-        presenter.reload();
+        presenter.refresh();
     }
 
     @Override
-    public void onPromocaoClick(ResultsItem promocao, int position) {
-        presenter.onPromocaoClicked(promocao, position);
+    public void onPromocaoClick(ResultsItem promocao) {
+        presenter.onPromocaoClicked(promocao);
     }
 }

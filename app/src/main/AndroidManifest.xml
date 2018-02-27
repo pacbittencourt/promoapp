@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="br.com.pacbittencourt.promoapp">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -12,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.promocoes.PromocoesActivity"
+        <activity
+            android:name=".ui.promocoes.PromocoesActivity"
             android:label="@string/promocoesActivity_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -20,11 +22,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.produtos.ProdutosActivity"
+        <activity
+            android:name=".ui.produtos.ProdutosActivity"
             android:label="@string/produtosActivity_title">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.promocoes.PromocoesActivity" />
+                android:value=".ui.promocoes.PromocoesActivity"/>
+        </activity>
+        <activity android:name=".ui.detalhesproduto.DetalhesProdutoActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.promocoes.PromocoesActivity"/>
         </activity>
     </application>
 
