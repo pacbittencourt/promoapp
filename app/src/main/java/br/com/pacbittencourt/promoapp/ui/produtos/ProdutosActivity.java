@@ -1,6 +1,7 @@
 package br.com.pacbittencourt.promoapp.ui.produtos;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,17 +27,35 @@ public final class ProdutosActivity
     @Inject
     ProdutosAdapter adapter;
 
+    private ResultsItem promocao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produtos);
 
-        Bundle bundle = getIntent().getBundleExtra(KEY_RESULTS_ITEM);
-        ResultsItem promocao = bundle.getParcelable(KEY_RESULTS_ITEM_BUNDLE);
-        adapter.setPromocao(promocao);
+        if (savedInstanceState != null &&
+                savedInstanceState.getParcelable(KEY_RESULTS_ITEM_BUNDLE) != null) {
+            promocao = savedInstanceState.getParcelable(KEY_RESULTS_ITEM_BUNDLE);
+            adapter.setPromocao(promocao);
+        } else {
+            Bundle bundle = getIntent().getBundleExtra(KEY_RESULTS_ITEM);
+            promocao = bundle.getParcelable(KEY_RESULTS_ITEM_BUNDLE);
+            adapter.setPromocao(promocao);
+        }
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(promocao.getNome());
+        }
 
         setupRecyclerView();
         setupListener();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putParcelable(KEY_RESULTS_ITEM_BUNDLE, promocao);
     }
 
     private void setupListener() {
@@ -61,7 +80,7 @@ public final class ProdutosActivity
     }
 
     @Override
-    public void onPordutoClick(PromocoesItem promocoesItem) {
+    public void onProdutoClick(PromocoesItem promocoesItem) {
         presenter.onProdutoClicked(promocoesItem);
     }
 }

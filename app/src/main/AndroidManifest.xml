@@ -24,15 +24,12 @@
         </activity>
         <activity
             android:name=".ui.produtos.ProdutosActivity"
-            android:label="@string/produtosActivity_title">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.promocoes.PromocoesActivity"/>
+            android:label="@string/produtosActivity_title"
+            android:parentActivityName=".ui.promocoes.PromocoesActivity">
         </activity>
-        <activity android:name=".ui.detalhesproduto.DetalhesProdutoActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.promocoes.PromocoesActivity"/>
+        <activity
+            android:name=".ui.detalhesproduto.DetalhesProdutoActivity"
+            android:parentActivityName=".ui.produtos.ProdutosActivity">
         </activity>
     </application>
 

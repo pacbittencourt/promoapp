@@ -13,6 +13,6 @@ class ProdutosPresenter
     }
 
     void onProdutoClicked(PromocoesItem promocoesItem) {
-
+        navigator.goToDetalhes(promocoesItem);
     }
 }

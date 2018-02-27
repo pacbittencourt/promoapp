@@ -6,4 +6,5 @@
     <string name="itemProduto_preco">R$ %1$s</string>
     <string name="produtosActivity_title">Produtos</string>
     <string name="promocoesActivity_title">Promoções</string>
+    <string name="detalhesProduto_validade">Oferta válida de %1$s a %2$s</string>
 </resources>

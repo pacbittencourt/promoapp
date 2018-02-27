@@ -39,7 +39,7 @@ final class ProdutosAdapter
     }
 
     interface OnProdutoClickListener {
-        void onPordutoClick(PromocoesItem promocoesItem);
+        void onProdutoClick(PromocoesItem promocoesItem);
     }
 
     void setListener(OnProdutoClickListener listener) {
@@ -99,7 +99,7 @@ final class ProdutosAdapter
 
         @OnClick(R.id.cv_itemProduto_container)
         void onProdutoClicked() {
-            listener.onPordutoClick(produtos.get(getAdapterPosition()));
+            listener.onProdutoClick(produtos.get(getAdapterPosition()));
         }
     }
 }
