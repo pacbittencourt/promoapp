@@ -1,10 +1,15 @@
 package br.com.pacbittencourt.promoapp.ui.produtos;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Filter;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -19,47 +24,39 @@ import static br.com.pacbittencourt.promoapp.ui.utils.Navigator.KEY_RESULTS_ITEM
 
 public final class ProdutosActivity
         extends BaseMvpActivity<ProdutosView, ProdutosPresenter>
-        implements ProdutosView, ProdutosAdapter.OnProdutoClickListener {
+        implements ProdutosView, ProdutosAdapter.OnProdutoClickListener,
+                   ProdutosCategoriaFiltroDialogFragment.FiltroCategoriaDialogListener,
+                   Filter.FilterListener {
 
+    private static final String FILTRO_CATEGORIA_DIALOG_TAG = "categoria_filtro_dialog_tag";
     @Inject
     ProdutosPresenter produtosPresenter;
 
     @Inject
     ProdutosAdapter adapter;
 
-    private ResultsItem promocao;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produtos);
 
-        if (savedInstanceState != null &&
-                savedInstanceState.getParcelable(KEY_RESULTS_ITEM_BUNDLE) != null) {
-            promocao = savedInstanceState.getParcelable(KEY_RESULTS_ITEM_BUNDLE);
-            adapter.setPromocao(promocao);
-        } else {
-            Bundle bundle = getIntent().getBundleExtra(KEY_RESULTS_ITEM);
-            promocao = bundle.getParcelable(KEY_RESULTS_ITEM_BUNDLE);
-            adapter.setPromocao(promocao);
-        }
+        Bundle bundle = getIntent().getBundleExtra(KEY_RESULTS_ITEM);
+        ResultsItem promocao = bundle.getParcelable(KEY_RESULTS_ITEM_BUNDLE);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(promocao.getNome());
+        if (promocao != null) {
+            presenter.onCreate(promocao);
+
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(promocao.getNome());
+            }
         }
 
         setupRecyclerView();
         setupListener();
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        outState.putParcelable(KEY_RESULTS_ITEM_BUNDLE, promocao);
-    }
-
     private void setupListener() {
-        adapter.setListener(this);
+        adapter.setListener(this, this);
     }
 
     private void setupRecyclerView() {
@@ -82,5 +79,56 @@ public final class ProdutosActivity
     @Override
     public void onProdutoClick(PromocoesItem promocoesItem) {
         presenter.onProdutoClicked(promocoesItem);
+    }
+
+    @Override
+    public void setData(ResultsItem resultsItem) {
+        adapter.setPromocao(resultsItem);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.produtos_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.action_categorias_filtro:
+                presenter.onFiltroClick();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showFiltroCategorias(int filtroSelecionado) {
+        List<String> categorias = adapter.getCategorias();
+        if (categorias != null) {
+            ProdutosCategoriaFiltroDialogFragment fragment =
+                    ProdutosCategoriaFiltroDialogFragment.newInstance(categorias,
+                            filtroSelecionado);
+            fragment.setListener(this);
+            fragment.show(getSupportFragmentManager(), FILTRO_CATEGORIA_DIALOG_TAG);
+        }
+    }
+
+    @Override
+    public void setCategorias(List<String> categorias) {
+        adapter.setCategorias(categorias);
+    }
+
+    @Override
+    public void onFilterComplete(int count) {
+        presenter.onFilterComplete(count);
+    }
+
+    @Override
+    public void onFiltroCategoriaDialogConfirmClick(int selecionado) {
+        presenter.onCategoriaSelecionada(selecionado);
+        adapter.filtrar(selecionado);
     }
 }

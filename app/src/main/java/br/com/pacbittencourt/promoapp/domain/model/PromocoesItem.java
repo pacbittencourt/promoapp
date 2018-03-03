@@ -11,10 +11,12 @@ import com.google.gson.annotations.SerializedName;
 
 import br.com.pacbittencourt.promoapp.data.local.converters.CategoriaTypeConverter;
 import br.com.pacbittencourt.promoapp.data.local.converters.ProdutoTypeConverter;
+import br.com.pacbittencourt.promoapp.ui.produtos.ProdutosAdapterItem;
+import br.com.pacbittencourt.promoapp.ui.produtos.ProdutosAdapterItemType;
 
 @Entity
 public class PromocoesItem
-        implements Parcelable {
+        implements ProdutosAdapterItem, Parcelable {
 
     @PrimaryKey
     private int id;
@@ -159,5 +161,10 @@ public class PromocoesItem
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    @Override
+    public int getViewType() {
+        return ProdutosAdapterItemType.ITEM;
     }
 }

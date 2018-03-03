@@ -7,4 +7,6 @@
     <string name="produtosActivity_title">Produtos</string>
     <string name="promocoesActivity_title">Promoções</string>
     <string name="detalhesProduto_validade">Oferta válida de %1$s a %2$s</string>
+    <string name="produtos_action_filtro">Filtrar por categorias</string>
+    <string name="produtos_categoriaFiltro">Categoria</string>
 </resources>
