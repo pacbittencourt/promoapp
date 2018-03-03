@@ -65,7 +65,7 @@ public class DetalhesProdutoActivity
                 ())));
         tvValidade.setText(getString(R.string.detalhesProduto_validade, formatDate(item
                 .getDataInicio()), formatDate(item.getDataTermino())));
-        tvCodigo.setText(getString(R.string.itemProduto_codigo, item.getProduto().getIdProduto()));
+        tvCodigo.setText(getString(R.string.itemProduto_codigo, item.getProduto().getCodigoInterno()));
     }
 
     private String formatDate(String data) {

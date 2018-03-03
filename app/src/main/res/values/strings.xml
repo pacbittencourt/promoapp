@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Promo App</string>
     <string name="viewError_message">Ocorreu um erro</string>
-    <string name="itemProduto_precoExemplo">R$ 2,99</string>
+    <string name="itemProduto_precoExemplo">R$ 999,99</string>
 
     <string name="itemProduto_preco">R$%1$s</string>
-    <string name="itemProduto_codigo">Código %1$d</string>
+    <string name="itemProduto_codigo">Código %1$s</string>
     <string name="produtosActivity_title">Produtos</string>
     <string name="promocoesActivity_title">Promoções</string>
     <string name="detalhesProduto_validade">Oferta válida de %1$s a %2$s</string>
