@@ -3,10 +3,13 @@
     <string name="viewError_message">Ocorreu um erro</string>
     <string name="itemProduto_precoExemplo">R$ 2,99</string>
 
-    <string name="itemProduto_preco">R$ %1$s</string>
+    <string name="itemProduto_preco">R$%1$s</string>
+    <string name="itemProduto_codigo">Código %1$d</string>
     <string name="produtosActivity_title">Produtos</string>
     <string name="promocoesActivity_title">Promoções</string>
     <string name="detalhesProduto_validade">Oferta válida de %1$s a %2$s</string>
     <string name="produtos_action_filtro">Filtrar por categorias</string>
     <string name="produtos_categoriaFiltro">Categoria</string>
+    <string name="itemProduto_codigoExemplo">ABCD</string>
+    <string name="detalhesProduto_descricaoImagem">Imagem do produto</string>
 </resources>

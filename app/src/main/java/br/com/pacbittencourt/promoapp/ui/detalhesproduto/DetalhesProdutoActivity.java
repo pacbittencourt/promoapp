@@ -37,6 +37,9 @@ public class DetalhesProdutoActivity
     @BindView(R.id.tv_detalhesProduto_validade)
     TextView tvValidade;
 
+    @BindView(R.id.tv_detalhesProduto_codigo)
+    TextView tvCodigo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +65,7 @@ public class DetalhesProdutoActivity
                 ())));
         tvValidade.setText(getString(R.string.detalhesProduto_validade, formatDate(item
                 .getDataInicio()), formatDate(item.getDataTermino())));
+        tvCodigo.setText(getString(R.string.itemProduto_codigo, item.getProduto().getIdProduto()));
     }
 
     private String formatDate(String data) {

@@ -9,13 +9,16 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/detalhesProduto_descricaoImagem"/>
     <TextView
         android:id="@+id/tv_detalhesProduto_nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_detalhesProduto_imagem"
-        android:layout_margin="15dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:text="@string/app_name"
@@ -23,11 +26,19 @@
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/tv_detalhesProduto_codigo"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_detalhesProduto_nome"
+        android:text="@string/itemProduto_codigoExemplo"/>
+
+    <TextView
         android:id="@+id/tv_detalhesProduto_preco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/tv_detalhesProduto_nome"
+        android:layout_below="@id/tv_detalhesProduto_codigo"
         android:layout_margin="15dp"
         android:ellipsize="end"
         android:maxLines="2"
