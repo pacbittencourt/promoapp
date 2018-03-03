@@ -16,8 +16,8 @@ import br.com.pacbittencourt.promoapp.injection.component.ActivityComponent;
 import br.com.pacbittencourt.promoapp.ui.base.BaseMvpLceActivity;
 
 public final class PromocoesActivity
-        extends BaseMvpLceActivity
-                        <SwipeRefreshLayout, List<ResultsItem>, PromocoesView, PromocoesPresenter>
+        extends BaseMvpLceActivity<SwipeRefreshLayout, List<ResultsItem>,
+                PromocoesView, PromocoesPresenter>
         implements PromocoesView, PromocoesAdapter.PromocaoClickListener,
                    SwipeRefreshLayout.OnRefreshListener {
 

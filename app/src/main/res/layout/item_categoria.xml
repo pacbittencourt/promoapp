@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:background="@color/colorAccent">
+             android:layout_marginTop="16dp">
 
     <TextView
         android:id="@+id/tv_categoria_nome"
@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="10dp"
-        android:padding="10dp"
         android:textSize="21sp"/>
 
 </FrameLayout>
