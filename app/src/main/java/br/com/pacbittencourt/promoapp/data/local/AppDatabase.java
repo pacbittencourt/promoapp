@@ -5,7 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 
 import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
 
-@Database(entities = {ResultsItem.class}, version = 1)
+@Database(entities = {ResultsItem.class}, version = 2)
 public abstract class AppDatabase
         extends RoomDatabase {
     public abstract ResultsItemDao resultsItemDao();
