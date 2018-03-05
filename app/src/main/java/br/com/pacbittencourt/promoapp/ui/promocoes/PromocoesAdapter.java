@@ -78,7 +78,7 @@ final class PromocoesAdapter
             tvNomePromocao.setText(resultsItem.getNome());
         }
 
-        @OnClick(R.id.btn_itemPromocao_verPromocao)
+        @OnClick(R.id.cv_itemPromocao_container)
         void onVerPromocaoClicked() {
             listener.onPromocaoClick(promocoes.get(getAdapterPosition()));
         }
