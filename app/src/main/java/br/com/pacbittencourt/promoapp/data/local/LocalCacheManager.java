@@ -17,7 +17,8 @@ import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 
-import static br.com.pacbittencourt.promoapp.injection.module.ApplicationModule.POST_EXECUTION_THREAD;
+import static br.com.pacbittencourt.promoapp.injection.module.ApplicationModule
+        .POST_EXECUTION_THREAD;
 import static br.com.pacbittencourt.promoapp.injection.module.ApplicationModule.THREAD;
 
 public class LocalCacheManager {
@@ -33,7 +34,8 @@ public class LocalCacheManager {
     public LocalCacheManager(@ActivityContext Context context,
                              @Named(THREAD) Scheduler threadExecutor,
                              @Named(POST_EXECUTION_THREAD) Scheduler postThreadExecutor) {
-        this.db = Room.databaseBuilder(context, AppDatabase.class, DB_NAME).build();
+        this.db = Room.databaseBuilder(context, AppDatabase.class, DB_NAME)
+                .fallbackToDestructiveMigration().build();
         this.threadExecutor = threadExecutor;
         this.postThreadExecutor = postThreadExecutor;
     }
