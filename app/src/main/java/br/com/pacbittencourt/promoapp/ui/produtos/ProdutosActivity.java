@@ -92,7 +92,7 @@ public final class ProdutosActivity
         getMenuInflater().inflate(R.menu.produtos_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.action_pesquisar);
         SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Pesquisar Nome ou Código");
+        searchView.setQueryHint("Nome ou Código");
         searchView.setOnQueryTextListener(this);
         return true;
     }
@@ -128,7 +128,7 @@ public final class ProdutosActivity
 
     @Override
     public void onFilterComplete(int count) {
-        presenter.onFilterComplete(count);
+
     }
 
     @Override

@@ -55,9 +55,6 @@ class ProdutosPresenter
         });
     }
 
-    void onFilterComplete(int count) {
-    }
-
     void onCategoriaSelecionada(int selecionado) {
         filtroSelecionado = selecionado;
     }
