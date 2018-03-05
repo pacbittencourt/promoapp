@@ -17,6 +17,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.pacbittencourt.promoapp.R;
+import br.com.pacbittencourt.promoapp.domain.model.Produto;
 import br.com.pacbittencourt.promoapp.domain.model.PromocaoItemAdapterSection;
 import br.com.pacbittencourt.promoapp.domain.model.PromocoesItem;
 import br.com.pacbittencourt.promoapp.domain.model.ResultsItem;
@@ -35,6 +36,8 @@ final class ProdutosAdapter
 
     private final List<ProdutosAdapterItem> produtosFiltrados;
 
+    private final List<ProdutosAdapterItem> produtosFiltradosPesquisa;
+
     private OnProdutoClickListener listener;
 
     private Filter.FilterListener filterListener;
@@ -43,18 +46,22 @@ final class ProdutosAdapter
 
     private List<String> categorias;
 
+    private int categoriaSelecionada;
+
     @Inject
     ProdutosAdapter() {
         this.produtos = new ArrayList<>();
         this.produtosFiltrados = new ArrayList<>();
         this.categorias = new ArrayList<>();
+        this.categoriaSelecionada = 0;
+        this.produtosFiltradosPesquisa = new ArrayList<>();
     }
 
     void setPromocao(ResultsItem promocao) {
         if (promocao.getPromocoes() == null || promocao.getPromocoes().isEmpty())
             return;
         this.produtos = promocao.getPromocoes();
-        filtrar(0);
+        filtrar(this.categoriaSelecionada);
         notifyDataSetChanged();
     }
 
@@ -70,6 +77,40 @@ final class ProdutosAdapter
 
     List<String> getCategorias() {
         return categorias;
+    }
+
+    void filtrarCodigoNome(String newText) {
+        if (newText.isEmpty()) {
+            filtrar(this.categoriaSelecionada);
+        } else {
+            List<ProdutosAdapterItem> filtrados = new ArrayList<>();
+            if (this.categoriaSelecionada != 0) {
+                PromocaoItemAdapterSection section = new PromocaoItemAdapterSection
+                        (((PromocaoItemAdapterSection) produtosFiltrados.get(0)).getNome());
+                produtosFiltrados.remove(0);
+                filtrados.add(section);
+                for (ProdutosAdapterItem item : produtosFiltradosPesquisa) {
+                    Produto produto = ((PromocoesItem) item).getProduto();
+                    if (produto.getCodigoInterno().toLowerCase().contains(newText.toLowerCase()) ||
+                            produto.getNomeProdutoBase().toLowerCase().contains(newText.toLowerCase()
+                            )) {
+                        filtrados.add(item);
+                    }
+                }
+            } else {
+                for (PromocoesItem item : produtos) {
+                    Produto produto = item.getProduto();
+                    if (produto.getCodigoInterno().toLowerCase().contains(newText.toLowerCase()) ||
+                            produto.getNomeProdutoBase().toLowerCase().contains(newText.toLowerCase()
+                            )) {
+                        filtrados.add(item);
+                    }
+                }
+            }
+            produtosFiltrados.clear();
+            produtosFiltrados.addAll(filtrados);
+            notifyDataSetChanged();
+        }
     }
 
     interface OnProdutoClickListener {
@@ -119,6 +160,7 @@ final class ProdutosAdapter
     }
 
     void filtrar(int categoriaSelecionada) {
+        this.categoriaSelecionada = categoriaSelecionada;
         String parametro = categorias.get(categoriaSelecionada);
         getFilter().filter(parametro, filterListener);
     }
@@ -126,6 +168,7 @@ final class ProdutosAdapter
     private void atualizarProdutos(List<PromocoesItem> promocoesItems) {
         if (promocoesItems == null || promocoesItems.isEmpty()) return;
         produtosFiltrados.clear();
+        produtosFiltradosPesquisa.clear();
 
         PromocaoItemAdapterSection section = new PromocaoItemAdapterSection(promocoesItems.get(0)
                 .getCategoria().getNome());
@@ -141,6 +184,7 @@ final class ProdutosAdapter
                 sectionAdded = true;
             }
             produtosFiltrados.add(promocoesItem);
+            produtosFiltradosPesquisa.add(promocoesItem);
         }
         notifyDataSetChanged();
     }

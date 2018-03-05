@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Filter;
@@ -26,7 +27,7 @@ public final class ProdutosActivity
         extends BaseMvpActivity<ProdutosView, ProdutosPresenter>
         implements ProdutosView, ProdutosAdapter.OnProdutoClickListener,
                    ProdutosCategoriaFiltroDialogFragment.FiltroCategoriaDialogListener,
-                   Filter.FilterListener {
+                   Filter.FilterListener, SearchView.OnQueryTextListener {
 
     private static final String FILTRO_CATEGORIA_DIALOG_TAG = "categoria_filtro_dialog_tag";
     @Inject
@@ -89,6 +90,10 @@ public final class ProdutosActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.produtos_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_pesquisar);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Pesquisar Nome ou Código");
+        searchView.setOnQueryTextListener(this);
         return true;
     }
 
@@ -130,5 +135,16 @@ public final class ProdutosActivity
     public void onFiltroCategoriaDialogConfirmClick(int selecionado) {
         presenter.onCategoriaSelecionada(selecionado);
         adapter.filtrar(selecionado);
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filtrarCodigoNome(newText);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
     }
 }
